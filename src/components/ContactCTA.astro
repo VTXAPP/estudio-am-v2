@@ -1,0 +1,52 @@
+---
+import { CONTENT, SITE, links, type Locale } from '../config/site';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = CONTENT[lang];
+const l = links(lang);
+---
+
+<section class="cta section">
+  <div class="container">
+    <div class="cta__top reveal">
+      <span class="mono" style="color:var(--beige)">{t.cta.eyebrow} — ✦</span>
+    </div>
+    <h2 class="cta__title reveal">{t.cta.heading}</h2>
+
+    <div class="cta__row reveal">
+      <p class="cta__text">{t.cta.text}</p>
+      <div class="cta__actions">
+        <a href={l.whatsapp} target="_blank" rel="noopener" class="btn btn--solid">WhatsApp →</a>
+        <a href={l.email} class="btn btn--light">{t.contact.emailLabel} →</a>
+        <a href={l.instagram} target="_blank" rel="noopener" class="btn btn--light">Instagram →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { background: var(--olive); color: var(--cream); position: relative; z-index: 2; }
+  .cta__top { margin-bottom: 1.5rem; }
+  .cta__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 9vw, 7rem);
+    line-height: 0.95; color: var(--cream);
+    max-width: 14ch;
+  }
+  .cta__title::after { content: '.'; color: var(--maroon); }
+  .cta__row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 4rem); align-items: end;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    border-top: 1px solid rgba(250,246,238,0.25); padding-top: 2rem;
+  }
+  .cta__text { color: var(--beige); max-width: 44ch; }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-start; }
+
+  @media (max-width: 760px) {
+    .cta__row { grid-template-columns: 1fr; align-items: start; }
+  }
+</style>

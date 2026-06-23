@@ -1,0 +1,63 @@
+---
+import Logo from './Logo.astro';
+import { CONTENT, SITE, links, type Locale } from '../config/site';
+const { lang } = Astro.props as { lang: Locale };
+const t = CONTENT[lang];
+const l = links(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__big">
+      <span class="footer__mark">Estudio</span>
+      <span class="footer__mark footer__mark--it">AM</span>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="mono footer__h" style="color:var(--beige)">{t.tagline}</p>
+        <p class="footer__loc">{t.location}</p>
+      </div>
+      <nav class="footer__col footer__links" aria-label={t.nav.contact}>
+        <a href={l.instagram} target="_blank" rel="noopener"><span class="mono footer__lab">IG</span> {SITE.contact.instagram.handle}</a>
+        <a href={l.email}><span class="mono footer__lab">@</span> {SITE.contact.email}</a>
+        <a href={l.whatsapp} target="_blank" rel="noopener"><span class="mono footer__lab">WA</span> +52 55 3939 4586</a>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <span class="mono">© {year} {SITE.name}</span>
+      <span class="mono">{t.footerRights}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--olive-deep); color: var(--beige); padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: 1.75rem; position: relative; z-index: 2; }
+  .footer__big {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 16vw, 13rem);
+    line-height: 0.9; color: var(--cream);
+    display: flex; gap: 0.3em; align-items: baseline;
+    border-bottom: 1px solid rgba(239,231,217,0.2); padding-bottom: 0.15em;
+  }
+  .footer__mark--it { font-style: italic; color: var(--beige); }
+
+  .footer__grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    padding-block: 2.5rem; border-bottom: 1px solid rgba(239,231,217,0.2);
+  }
+  .footer__h { margin-bottom: 0.6rem; }
+  .footer__loc { color: var(--beige); opacity: 0.8; max-width: 32ch; }
+  .footer__links { display: flex; flex-direction: column; gap: 0.7rem; align-items: flex-start; }
+  .footer__links a { display: inline-flex; align-items: baseline; gap: 0.6em; }
+  .footer__links a:hover { color: var(--cream); }
+  .footer__lab { color: var(--olive-soft); }
+
+  .footer__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; opacity: 0.6; }
+
+  @media (max-width: 640px) {
+    .footer__grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+</style>

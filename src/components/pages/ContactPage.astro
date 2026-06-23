@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+import { CONTENT, SITE, links, type Locale } from '../../config/site';
+
+const { lang } = Astro.props as { lang: Locale };
+const t = CONTENT[lang];
+const l = links(lang);
+const f = t.contact.form;
+---
+
+<Base lang={lang} pageKey="contact" title={t.nav.contact}>
+  <section class="contact">
+    <div class="container">
+      <header class="contact__head reveal">
+        <span class="mono mono--maroon">✦ {t.contact.eyebrow}</span>
+        <h1 class="display-xl contact__title">{t.contact.title}</h1>
+        <p class="contact__lead lead">{t.contact.lead}</p>
+      </header>
+
+      <div class="contact__grid">
+        <div class="contact__channels reveal">
+          <ul class="channels">
+            <li><a href={l.whatsapp} target="_blank" rel="noopener" class="channel">
+              <span class="mono channel__label">WhatsApp</span>
+              <span class="channel__value">+52 55 3939 4586</span>
+            </a></li>
+            <li><a href={l.email} class="channel">
+              <span class="mono channel__label">{t.contact.emailLabel}</span>
+              <span class="channel__value">{SITE.contact.email}</span>
+            </a></li>
+            <li><a href={l.instagram} target="_blank" rel="noopener" class="channel">
+              <span class="mono channel__label">Instagram</span>
+              <span class="channel__value">{SITE.contact.instagram.handle}</span>
+            </a></li>
+            <li><div class="channel channel--static">
+              <span class="mono channel__label">{lang === 'es' ? 'Ubicación' : 'Location'}</span>
+              <span class="channel__value channel__value--muted">{t.location}</span>
+            </div></li>
+          </ul>
+        </div>
+
+        <div class="contact__form-wrap reveal">
+          <form class="form" data-contact-form>
+            <label class="field"><span class="mono">{f.name}</span><input type="text" name="nombre" required placeholder={f.namePh} /></label>
+            <label class="field"><span class="mono">{f.type}</span>
+              <select name="tipo">{f.types.map((ty) => <option>{ty}</option>)}</select>
+            </label>
+            <label class="field"><span class="mono">{f.date}</span><input type="text" name="fecha" placeholder={f.datePh} /></label>
+            <label class="field"><span class="mono">{f.message}</span><textarea name="mensaje" rows="3" placeholder={f.messagePh}></textarea></label>
+            <div class="form__actions">
+              <button type="submit" class="btn btn--solid" data-send="whatsapp">{f.sendWa} →</button>
+              <button type="submit" class="btn btn--outline" data-send="email">{f.sendEmail} →</button>
+            </div>
+            <p class="mono form__note">{f.note}</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact { padding-top: calc(72px + clamp(3rem, 7vw, 7rem)); padding-bottom: clamp(4rem, 8vw, 8rem); }
+  .contact__head { margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+  .contact__title { margin: 0.5rem 0 1.25rem; }
+  .contact__lead { max-width: 46ch; }
+
+  .contact__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+
+  .channels { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  .channels li { border-bottom: 1px solid var(--line); }
+  .channel { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.25rem 0; transition: padding-left 0.35s ease; }
+  a.channel:hover { padding-left: 0.7rem; }
+  .channel__label { color: var(--olive-soft); }
+  .channel__value { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 2rem); color: var(--maroon); }
+  .channel__value--muted { color: var(--ink); font-size: clamp(1.1rem, 1.8vw, 1.4rem); }
+
+  .field { display: block; margin-bottom: 1.5rem; }
+  .field span { display: block; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .field input, .field select, .field textarea {
+    width: 100%; font-family: var(--font-body); font-size: 1.05rem; color: var(--ink);
+    background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 0.6rem 0;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--olive); }
+  .field textarea { resize: vertical; }
+  .form__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .form__note { margin-top: 1.5rem; text-transform: none; letter-spacing: 0.02em; color: var(--ink-soft); }
+
+  @media (max-width: 760px) { .contact__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script is:inline define:vars={{ wa: SITE.contact.whatsapp, mail: SITE.contact.email, L: { greeting: f.greeting, type: f.fType, date: f.fDate, subject: f.subject } }}>
+  const form = document.querySelector('[data-contact-form]');
+  let channel = 'whatsapp';
+  form?.querySelectorAll('[data-send]').forEach((btn) => {
+    btn.addEventListener('click', () => { channel = btn.getAttribute('data-send'); });
+  });
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const nombre = fd.get('nombre') || '';
+    const tipo = fd.get('tipo') || '';
+    const fecha = fd.get('fecha') || '';
+    const mensaje = fd.get('mensaje') || '';
+    const cuerpo = `${L.greeting} ${nombre}.\n${L.type}: ${tipo}\n${L.date}: ${fecha}\n\n${mensaje}`;
+    if (channel === 'whatsapp') {
+      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(cuerpo)}`, '_blank');
+    } else {
+      window.location.href = `mailto:${mail}?subject=${encodeURIComponent(L.subject + ' ' + tipo + ' — ' + nombre)}&body=${encodeURIComponent(cuerpo)}`;
+    }
+  });
+</script>

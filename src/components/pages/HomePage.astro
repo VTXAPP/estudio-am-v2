@@ -1,0 +1,202 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import ContactCTA from '../ContactCTA.astro';
+import { CONTENT, ROUTES, HERO, PHOTOS, type Locale } from '../../config/site';
+
+const { lang } = Astro.props as { lang: Locale };
+const t = CONTENT[lang];
+const r = ROUTES[lang];
+const featured = PHOTOS.filter((p) => p.feat).slice(0, 6);
+const catLabel = (c: string) => (t.portfolio.filters as any)[c] ?? c;
+
+const marqueeWords = lang === 'es'
+  ? ['Bodas', 'Eventos', 'Retratos', 'Estudio AM', 'Fotografía']
+  : ['Weddings', 'Events', 'Portraits', 'Estudio AM', 'Photography'];
+---
+
+<Base lang={lang} pageKey="home" transparentHeader={true}>
+  <!-- HERO -->
+  <section class="hero">
+    <Image src={HERO} alt={t.hero.title} class="hero__img" widths={[768, 1100, 1500]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <div class="hero__overlay"></div>
+    <div class="hero__meta hero__meta--tl mono">Estudio AM — © {new Date().getFullYear()}</div>
+    <div class="hero__meta hero__meta--tr mono">{t.heroMeta}</div>
+    <div class="hero__content container">
+      <p class="mono hero__eyebrow">{t.hero.eyebrow}</p>
+      <h1 class="hero__title">{t.hero.title.split(' ').map((w, i) => (<span class={i === 1 ? 'italic' : ''}>{w} </span>))}</h1>
+    </div>
+    <a href={r.portfolio} class="hero__cta mono">{t.hero.cta} ↓</a>
+  </section>
+
+  <!-- MARQUESINA -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {[...marqueeWords, ...marqueeWords].map((w) => <span>{w}</span>)}
+    </div>
+  </div>
+
+  <!-- MANIFIESTO -->
+  <section class="section manifesto">
+    <div class="container manifesto__grid">
+      <p class="mono mono--maroon reveal">✦ {lang === 'es' ? 'Manifiesto' : 'Statement'}</p>
+      <p class="manifesto__text reveal">{t.intro}</p>
+    </div>
+  </section>
+
+  <!-- TRABAJO SELECCIONADO -->
+  <section class="section work">
+    <div class="container">
+      <div class="work__head reveal">
+        <span class="mono">{t.featured.eyebrow}</span>
+        <h2 class="display-lg">{t.featured.title}</h2>
+      </div>
+      <div class="work__grid">
+        {featured.map((img, i) => (
+          <figure class="work__fig reveal">
+            <a href={r.portfolio} class="work__imgwrap">
+              <Image src={img.src} alt={img.alt[lang]} widths={[500, 800, 1100]} sizes="(max-width: 760px) 100vw, 50vw" />
+            </a>
+            <figcaption class="mono work__cap">
+              <span>Fig. {String(i + 1).padStart(2, '0')}</span>
+              <span>{catLabel(img.cat)}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <a href={r.portfolio} class="work__more btn btn--outline">{lang === 'es' ? 'Ver portafolio completo' : 'See full portfolio'} →</a>
+    </div>
+  </section>
+
+  <!-- NUESTRA MIRADA -->
+  <section class="section approach">
+    <div class="container approach__grid">
+      <div class="approach__side">
+        <span class="mono mono--maroon">✦ {t.approach.eyebrow}</span>
+      </div>
+      <div class="approach__main reveal">
+        <h2 class="display-md approach__title">{t.approach.title}</h2>
+        <div class="approach__cols">
+          <p>{t.approach.col1}</p>
+          <p>{t.approach.col2}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS (índice editorial) -->
+  <section class="section services">
+    <div class="container">
+      <div class="work__head reveal">
+        <span class="mono">{t.services.eyebrow}</span>
+        <h2 class="display-lg">{t.services.title}</h2>
+      </div>
+      <ul class="svc">
+        {t.services.items.map((s, i) => (
+          <li class="svc__row reveal">
+            <a href={r.contact} class="svc__link">
+              <span class="mono svc__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="svc__title">{s.title}</span>
+              <span class="svc__text">{s.text}</span>
+              <span class="mono svc__cta">{t.services.cta} →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section kind">
+    <div class="container">
+      <span class="mono mono--maroon reveal">✦ {t.kindWords}</span>
+      <div class="kind__grid">
+        {t.testimonials.map((q, i) => (
+          <blockquote class="kind__q reveal">
+            <span class="mono kind__n">{String(i + 1).padStart(2, '0')}</span>
+            <p class="kind__text">“{q.quote}”</p>
+            <cite class="mono kind__by">— {q.author}</cite>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA lang={lang} />
+</Base>
+
+<style>
+  /* ---- HERO ---- */
+  .hero { position: relative; height: 100svh; min-height: 600px; display: grid; }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 32% 62%; }
+  .hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40,34,18,0.4) 0%, rgba(40,34,18,0.1) 40%, rgba(40,34,18,0.65) 100%); }
+  .hero__meta { position: absolute; top: 86px; color: rgba(250,246,238,0.85); z-index: 2; }
+  .hero__meta--tl { left: var(--gutter); }
+  .hero__meta--tr { right: var(--gutter); text-align: right; }
+  .hero__content { position: relative; align-self: end; padding-bottom: clamp(3.5rem, 8vw, 7rem); color: var(--cream); }
+  .hero__eyebrow { color: var(--beige); margin-bottom: 1rem; }
+  .hero__title { font-family: var(--font-display); font-weight: 400; color: var(--cream); font-size: clamp(3.2rem, 11vw, 9.5rem); line-height: 0.92; max-width: 14ch; }
+  .hero__cta { position: absolute; right: var(--gutter); bottom: clamp(2rem, 5vw, 3.5rem); color: var(--cream); z-index: 2; }
+
+  /* ---- MANIFIESTO ---- */
+  .manifesto { background: var(--cream); }
+  .manifesto__grid { display: grid; grid-template-columns: 0.25fr 0.75fr; gap: 2rem; align-items: start; }
+  .manifesto__text { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.7rem, 4vw, 3.4rem); line-height: 1.18; color: var(--ink); }
+
+  /* ---- HEAD reutilizable ---- */
+  .work__head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
+
+  /* ---- TRABAJO (rejilla editorial asimétrica) ---- */
+  .work { background: var(--cream); }
+  .work__grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(1rem, 2.5vw, 2.5rem); }
+  .work__fig { margin-bottom: clamp(2rem, 5vw, 4.5rem); }
+  .work__fig:nth-child(odd) { grid-column: 1 / 8; }
+  .work__fig:nth-child(even) { grid-column: 8 / 13; margin-top: clamp(2rem, 7vw, 7rem); }
+  .work__imgwrap { display: block; overflow: hidden; }
+  .work__imgwrap img { width: 100%; transition: transform 0.8s ease, filter 0.6s ease; }
+  .work__fig:hover .work__imgwrap img { transform: scale(1.03); }
+  .work__cap { display: flex; justify-content: space-between; margin-top: 0.7rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 0.6rem; }
+  .work__more { margin-top: 1rem; }
+
+  /* ---- NUESTRA MIRADA ---- */
+  .approach { background: var(--beige-soft); }
+  .approach__grid { display: grid; grid-template-columns: 0.25fr 0.75fr; gap: 2rem; }
+  .approach__title { margin-bottom: 1.75rem; max-width: 16ch; }
+  .approach__cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); }
+  .approach__cols p { color: var(--ink-soft); max-width: 44ch; }
+
+  /* ---- SERVICIOS ---- */
+  .services { background: var(--cream); }
+  .svc { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+  .svc__row { border-bottom: 1px solid var(--line); }
+  .svc__link {
+    display: grid; grid-template-columns: 3rem 1.1fr 1.6fr auto; gap: clamp(1rem, 3vw, 3rem);
+    align-items: baseline; padding-block: clamp(1.5rem, 3vw, 2.4rem);
+    transition: padding-left 0.4s ease, background-color 0.4s ease;
+  }
+  .svc__link:hover { padding-left: 1rem; background: var(--beige-soft); }
+  .svc__num { color: var(--maroon); }
+  .svc__title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1; }
+  .svc__link:hover .svc__title { font-style: italic; }
+  .svc__text { color: var(--ink-soft); max-width: 46ch; }
+  .svc__cta { color: var(--olive-soft); white-space: nowrap; }
+
+  /* ---- TESTIMONIOS ---- */
+  .kind { background: var(--sand); }
+  .kind__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+  .kind__q { display: flex; flex-direction: column; gap: 1rem; }
+  .kind__n { color: var(--maroon); }
+  .kind__text { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: 1.35; color: var(--ink); }
+  .kind__by { color: var(--ink-soft); }
+
+  @media (max-width: 900px) {
+    .manifesto__grid, .approach__grid { grid-template-columns: 1fr; }
+    .approach__cols { grid-template-columns: 1fr; }
+    .svc__link { grid-template-columns: 2.2rem 1fr; row-gap: 0.5rem; }
+    .svc__text, .svc__cta { grid-column: 2; }
+    .kind__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 760px) {
+    .work__fig:nth-child(odd), .work__fig:nth-child(even) { grid-column: 1 / 13; margin-top: 0; }
+  }
+</style>

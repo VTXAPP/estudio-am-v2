@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import ContactCTA from '../ContactCTA.astro';
+import { CONTENT, PORTRAIT, type Locale } from '../../config/site';
+
+const { lang } = Astro.props as { lang: Locale };
+const t = CONTENT[lang];
+---
+
+<Base lang={lang} pageKey="about" title={t.nav.about}>
+  <section class="about">
+    <div class="container">
+      <header class="about__head">
+        <span class="mono mono--maroon reveal">✦ {t.about.eyebrow}</span>
+        <h1 class="display-xl about__title reveal">{t.about.title}</h1>
+      </header>
+
+      <div class="about__grid">
+        <figure class="about__media reveal">
+          <Image src={PORTRAIT} alt={t.about.title} widths={[500, 900, 1300]} sizes="(max-width: 760px) 100vw, 42vw" />
+          <figcaption class="mono about__cap">Fig. 00 — {lang === 'es' ? 'La fotógrafa' : 'The photographer'}</figcaption>
+        </figure>
+
+        <div class="about__text reveal">
+          {t.about.paragraphs.map((p) => <p class="about__p">{p}</p>)}
+
+          <dl class="about__info">
+            {t.aboutInfo.map((it) => (
+              <div class="about__info-row">
+                <dt class="mono">{it.label}</dt>
+                <dd>{it.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+
+      {t.about.quote && (
+        <blockquote class="about__quote reveal">“{t.about.quote}”</blockquote>
+      )}
+    </div>
+  </section>
+
+  <ContactCTA lang={lang} />
+</Base>
+
+<style>
+  .about { padding-top: calc(72px + clamp(3rem, 7vw, 7rem)); padding-bottom: clamp(3rem, 6vw, 6rem); }
+  .about__head { margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+  .about__title { margin-top: 0.5rem; }
+
+  .about__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .about__media { overflow: hidden; }
+  .about__media img { width: 100%; display: block; filter: grayscale(1); }
+  .about__cap { display: block; margin-top: 0.6rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 0.5rem; }
+  /* el retrato baja un poco para un aire editorial asimétrico */
+  .about__media { margin-top: clamp(0rem, 3vw, 3rem); }
+
+  .about__p { color: var(--ink-soft); margin-bottom: 1.2rem; max-width: 58ch; font-size: 1.05rem; }
+  .about__info { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+  .about__info-row { display: grid; grid-template-columns: 10rem 1fr; gap: 1rem; padding-block: 0.9rem; border-bottom: 1px solid var(--line); }
+  .about__info-row dt { color: var(--olive-soft); align-self: center; }
+  .about__info-row dd { color: var(--ink); }
+
+  .about__quote {
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(1.8rem, 5vw, 4rem); line-height: 1.12; color: var(--ink);
+    max-width: 20ch; margin: clamp(4rem, 9vw, 8rem) 0 1rem auto; text-align: right;
+  }
+  .about__quote::first-letter { color: var(--maroon); }
+
+  @media (max-width: 820px) {
+    .about__grid { grid-template-columns: 1fr; }
+    .about__media { max-width: 460px; margin-top: 0; }
+    .about__quote { text-align: left; margin-left: 0; }
+    .about__info-row { grid-template-columns: 7rem 1fr; }
+  }
+</style>
