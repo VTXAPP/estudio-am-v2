@@ -9,11 +9,6 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container">
-    <div class="footer__big">
-      <span class="footer__mark">Estudio</span>
-      <span class="footer__mark footer__mark--it">AM</span>
-    </div>
-
     <div class="footer__grid">
       <div class="footer__col">
         <p class="mono footer__h" style="color:var(--beige)">{t.tagline}</p>
@@ -36,20 +31,9 @@ const year = new Date().getFullYear();
 <style>
   /* Mismo granate que el bloque de contacto: se leen como una sola zona */
   .footer { background: var(--brick); color: var(--beige); padding-top: clamp(1.5rem, 3vw, 2.5rem); padding-bottom: 1.75rem; position: relative; z-index: 2; }
-  .footer__big {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(2.8rem, 12vw, 9.5rem);
-    letter-spacing: 0.02em;
-    line-height: 1; color: var(--cream);
-    display: flex; gap: 0.3em; align-items: baseline;
-    border-bottom: 1px solid rgba(239,231,217,0.2); padding-bottom: 0.15em;
-  }
-  .footer__mark--it { font-style: italic; color: var(--beige); }
-
   .footer__grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-    padding-block: 2.5rem; border-bottom: 1px solid rgba(239,231,217,0.2);
+    padding-block: 0 2.5rem; border-bottom: 1px solid rgba(239,231,217,0.2);
   }
   .footer__h { margin-bottom: 0.6rem; }
   .footer__loc { color: var(--beige); opacity: 0.8; max-width: 32ch; }

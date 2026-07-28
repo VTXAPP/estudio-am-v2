@@ -11,9 +11,7 @@ const l = links(lang);
 
 <section class="cta section">
   <div class="container">
-    <div class="cta__top reveal">
-      <span class="mono" style="color:var(--beige)">{t.cta.eyebrow} — ✦</span>
-    </div>
+    <h2 class="display-lg cta__title reveal">{t.cta.eyebrow}</h2>
 
     <div class="cta__row reveal">
       <p class="cta__text">{t.cta.text}</p>
@@ -33,7 +31,7 @@ const l = links(lang);
     position: relative; z-index: 2;
     padding-bottom: clamp(2.5rem, 5vw, 4rem);
   }
-  .cta__top { margin-bottom: 1.25rem; }
+  .cta__title { color: var(--cream); }
   .cta__row {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: clamp(1.5rem, 4vw, 4rem); align-items: end;
