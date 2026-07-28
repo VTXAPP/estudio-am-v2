@@ -2,7 +2,9 @@
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ContactCTA from '../ContactCTA.astro';
-import { CONTENT, ROUTES, IMG, PHOTOS, type Locale, type PageKey } from '../../config/site';
+import { CONTENT, ROUTES, PHOTOS, type Locale, type PageKey } from '../../config/site';
+import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
+import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
@@ -14,18 +16,29 @@ const marqueeWords = lang === 'es'
   ? ['Bodas', 'Eventos', 'Retratos', 'Estudio AM', 'Fotografía']
   : ['Weddings', 'Events', 'Portraits', 'Estudio AM', 'Photography'];
 
-/* Menú dentro de la tarjeta del hero (estilo referencia: mono, granate, subrayado) */
+/* Menú dentro de la tarjeta (como el mock: dos enlaces arriba a la derecha) */
 const cardNav: { label: string; href: string; key: PageKey }[] = [
   { label: t.nav.portfolio, href: r.portfolio, key: 'portfolio' },
   { label: t.nav.about, href: r.about, key: 'about' },
-  { label: t.nav.contact, href: r.contact, key: 'contact' },
+];
+/* Menú vertical del margen izquierdo (como el mock: ENQUIRE·PORTFOLIO·SERVICES·ABOUT·HOME) */
+const sideNav: { label: string; href: string }[] = [
+  { label: t.nav.contact, href: r.contact },
+  { label: t.nav.portfolio, href: r.portfolio },
+  { label: t.services.eyebrow, href: `${r.home}#servicios` },
+  { label: t.nav.about, href: r.about },
+  { label: t.nav.home, href: r.home },
 ];
 const year = new Date().getFullYear();
 ---
 
 <Base lang={lang} pageKey="home" transparentHeader={true} hideHeaderAtTop={true}>
-  <!-- HERO enmarcado: mat granate + tarjeta crema + foto pequeña + flor dibujada -->
+  <!-- HERO enmarcado (geometría medida del mock: márgenes 22.3/19.9/27.2/21.4%) -->
   <section class="fhero">
+    <nav class="fhero__side" aria-label="Navegación lateral">
+      {sideNav.map((item) => <a href={item.href} class="mono fhero__vlink">{item.label}</a>)}
+    </nav>
+
     <div class="fhero__card">
       <div class="fhero__top">
         <a href={r.home} class="fhero__brand" aria-label="Estudio AM">
@@ -39,45 +52,20 @@ const year = new Date().getFullYear();
 
       <figure class="fhero__photo">
         <Image
-          src={IMG.am24}
-          alt={lang === 'es' ? 'Cola del vestido de novia de tul, en blanco y negro' : 'Bride’s tulle dress train, black and white'}
+          src={amCover}
+          alt={lang === 'es' ? 'Velo de novia cayendo sobre una banca, en blanco y negro' : 'Bridal veil draped over a bench, black and white'}
           widths={[240, 420, 640]}
-          sizes="(max-width: 760px) 46vw, 22vw"
+          sizes="(max-width: 880px) 40vw, 12vw"
           loading="eager"
           fetchpriority="high"
         />
       </figure>
 
-      <!-- Flor de trazo a mano (granate) -->
-      <svg class="fhero__flower" viewBox="0 0 1000 560" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
-        <g stroke="var(--brick)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-          <!-- tallo largo que sale por abajo de la tarjeta -->
-          <path stroke-width="7" d="M296 350 C 292 420, 304 500, 330 590" />
-          <!-- tallo que conecta con la flor derecha -->
-          <path stroke-width="7" d="M302 344 C 352 424, 462 458, 566 434 C 628 419, 666 384, 696 340" />
-          <!-- hoja abierta sobre el tallo -->
-          <path stroke-width="6.5" d="M540 444 C 560 408, 596 396, 618 400 C 600 424, 566 438, 544 446" />
-          <!-- flor izquierda: pétalos abiertos y puntiagudos (trazo fino) -->
-          <path stroke-width="6.5" d="M298 326 C 262 300, 218 258, 202 218 C 238 238, 282 294, 304 324" />
-          <path stroke-width="6.5" d="M302 320 C 292 272, 288 220, 302 178 C 322 220, 318 282, 308 322" />
-          <path stroke-width="6.5" d="M310 326 C 344 292, 386 262, 424 250 C 402 292, 352 322, 314 334" />
-          <path stroke-width="6.5" d="M314 340 C 356 352, 396 376, 416 408 C 372 400, 330 372, 310 348" />
-          <path stroke-width="6.5" d="M304 348 C 306 396, 296 446, 272 482 C 262 436, 278 384, 296 350" />
-          <path stroke-width="6.5" d="M292 340 C 252 352, 210 352, 178 338 C 214 320, 262 322, 292 332" />
-          <path stroke-width="6.5" d="M290 326 c -5 -9, 9 -15, 14 -6 c 4 8, -7 14, -14 6" />
-          <!-- flor derecha: pétalos anchos, trazo grueso tipo plumón -->
-          <path stroke-width="13" d="M694 324 C 668 288, 646 254, 642 226 C 668 244, 692 288, 702 320" />
-          <path stroke-width="13" d="M706 318 C 716 280, 736 246, 762 230 C 758 264, 736 300, 712 322" />
-          <path stroke-width="13" d="M712 330 C 748 322, 786 320, 812 332 C 788 354, 748 356, 714 340" />
-          <path stroke-width="13" d="M708 342 C 724 374, 736 410, 730 442 C 706 416, 698 376, 700 346" />
-          <path stroke-width="13" d="M696 342 C 678 368, 652 392, 622 400 C 634 370, 664 348, 692 334" />
-          <path stroke-width="10" d="M696 326 c -4 -8, 9 -13, 13 -5 c 3 7, -7 12, -13 5" />
-        </g>
-      </svg>
+      <!-- Flores exactas del mock (PNG con transparencia, tintado #873834) -->
+      <Image src={florMock} alt="" widths={[640, 1192]} sizes="(max-width: 880px) 84vw, 38vw" class="fhero__flower" loading="eager" aria-hidden="true" />
 
       <div class="fhero__bottom">
         <span class="mono fhero__foot">© {year} Estudio AM · {t.footerRights}</span>
-        <a href={r.portfolio} class="mono fhero__foot fhero__foot--link">{t.hero.cta} ↓</a>
       </div>
     </div>
   </section>
@@ -138,7 +126,7 @@ const year = new Date().getFullYear();
   </section>
 
   <!-- SERVICIOS (índice editorial) -->
-  <section class="section services">
+  <section class="section services" id="servicios">
     <div class="container">
       <div class="work__head reveal">
         <span class="mono">{t.services.eyebrow}</span>
@@ -179,13 +167,45 @@ const year = new Date().getFullYear();
 </Base>
 
 <style>
-  /* ---- HERO enmarcado (mat granate + tarjeta crema) ---- */
+  /* ---- HERO enmarcado — geometría del mock ---- */
   .fhero {
+    position: relative;
     background: var(--brick);
     min-height: 100svh;
     display: grid;
-    padding: clamp(1.1rem, 4.5vw, 4.5rem);
+    /* márgenes medidos del mock: T 27.2% · R 19.9% · B 21.4% · L 22.3% */
+    padding: 27.2svh 19.9vw 21.4svh 22.3vw;
   }
+  /* línea vertical del margen izquierdo (x = 6.25vw en el mock) */
+  .fhero::before {
+    content: '';
+    position: absolute;
+    left: 6.25vw; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(250, 246, 238, 0.35);
+  }
+  /* menú vertical (ENQUIRE·PORTFOLIO·SERVICES·ABOUT·HOME del mock) */
+  .fhero__side {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6.25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 11svh 0.9vw 9svh 0;
+    z-index: 2;
+  }
+  .fhero__vlink {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: rgba(250, 246, 238, 0.88);
+    white-space: nowrap;
+  }
+  .fhero__vlink:hover { color: var(--cream); text-decoration: underline; text-underline-offset: 0.35em; }
+
   .fhero__card {
     position: relative;
     background: var(--cream);
@@ -193,7 +213,7 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: clamp(1.1rem, 2.6vw, 2.4rem);
+    padding: clamp(0.85rem, 1.5vw, 1.5rem) clamp(0.9rem, 1.6vw, 1.7rem);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
   }
   .fhero__top {
@@ -207,14 +227,14 @@ const year = new Date().getFullYear();
   .fhero__title {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: clamp(1rem, 1.6vw, 1.35rem);
-    letter-spacing: 0.22em;
+    font-size: clamp(0.9rem, 1vw, 1.15rem);
+    letter-spacing: 0.16em;
     color: var(--ink);
     white-space: nowrap;
   }
-  .fhero__nav { display: flex; gap: clamp(0.9rem, 2vw, 1.8rem); align-items: center; }
+  .fhero__nav { display: flex; gap: clamp(0.9rem, 1.6vw, 1.5rem); align-items: center; }
   .fhero__link {
-    color: var(--maroon);
+    color: var(--brick);
     text-decoration: underline;
     text-underline-offset: 0.35em;
     text-decoration-thickness: 1px;
@@ -223,45 +243,44 @@ const year = new Date().getFullYear();
   .fhero__link--lang { border: 1px solid var(--line); padding: 0.3em 0.6em; text-decoration: none; }
   .fhero__link--lang:hover { background: var(--olive); color: var(--cream); border-color: var(--olive); }
 
+  /* foto: medida del mock — left 42.8% · top 9% · ancho 19.35% · ratio 179/235 */
   .fhero__photo {
     position: absolute;
-    left: 50%;
-    top: 42%;
-    transform: translate(-50%, -50%);
-    width: clamp(170px, 21vw, 260px);
+    left: 42.8%;
+    top: 8.95%;
+    width: 19.35%;
+    aspect-ratio: 179 / 235;
     z-index: 1;
     margin: 0;
   }
-  .fhero__photo img { width: 100%; filter: grayscale(1); }
+  .fhero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1); }
 
+  /* flores exactas del mock: left 16.5% · pegadas abajo · ancho 64.4% */
   .fhero__flower {
     position: absolute;
-    left: 4%;
-    bottom: -7%;
-    width: 82%;
-    max-height: 82%;
+    left: 16.5%;
+    bottom: 0.3%;
+    width: 64.4%;
+    height: auto;
     z-index: 2;
     pointer-events: none;
   }
 
-  .fhero__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    position: relative;
-    z-index: 3;
-  }
-  .fhero__foot { color: var(--ink-soft); font-size: 0.62rem; }
-  .fhero__foot--link { color: var(--maroon); }
-  .fhero__foot--link:hover { text-decoration: underline; text-underline-offset: 0.35em; }
+  .fhero__bottom { display: flex; justify-content: flex-start; position: relative; z-index: 3; }
+  .fhero__foot { color: var(--ink-soft); font-size: 0.6rem; }
 
+  @media (max-width: 1100px) {
+    .fhero { padding: 16svh 9vw 12svh 13vw; }
+    .fhero::before { left: 4.5vw; }
+    .fhero__side { width: 4.5vw; padding-right: 0.7vw; }
+  }
   @media (max-width: 880px) {
-    /* el header fijo (con hamburguesa) queda visible: damos aire arriba y ocultamos el menú propio */
-    .fhero { padding-top: calc(72px + 1.1rem); }
-    .fhero__nav { display: none; }
-    .fhero__photo { width: clamp(150px, 44vw, 220px); }
-    .fhero__flower { width: 92%; left: 2%; }
+    /* móvil: header fijo visible (hamburguesa); sin menú lateral ni de tarjeta */
+    .fhero { padding: calc(72px + 1rem) 1.1rem 1.4rem; }
+    .fhero::before, .fhero__side, .fhero__nav { display: none; }
+    .fhero__card { min-height: calc(100svh - 72px - 2.4rem); }
+    .fhero__photo { left: 30%; top: 10%; width: 40%; }
+    .fhero__flower { left: 6%; width: 86%; }
   }
 
   /* ---- MANIFIESTO ---- */
