@@ -6,8 +6,10 @@ interface Props {
   lang: Locale;
   pageKey: PageKey;
   transparent?: boolean;
+  /** Oculta el header arriba del todo (cuando el hero trae su propio menú) y lo muestra al hacer scroll. */
+  hideAtTop?: boolean;
 }
-const { lang, pageKey, transparent = false } = Astro.props;
+const { lang, pageKey, transparent = false, hideAtTop = false } = Astro.props;
 const t = CONTENT[lang];
 const r = ROUTES[lang];
 
@@ -21,7 +23,7 @@ const altLang = other(lang);
 const altHref = ROUTES[altLang][pageKey];
 ---
 
-<header class:list={['site-header', { 'is-transparent': transparent }]} data-header>
+<header class:list={['site-header', { 'is-transparent': transparent, 'is-hide-top': hideAtTop }]} data-header>
   <div class="site-header__inner container">
     <a href={r.home} class="brand"><Logo /></a>
 
@@ -54,8 +56,10 @@ const altHref = ROUTES[altLang][pageKey];
     position: fixed; inset: 0 0 auto 0; z-index: 50;
     background: var(--cream);
     border-bottom: 1px solid var(--line);
-    transition: background-color 0.4s ease, border-color 0.4s ease;
+    transition: background-color 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
   }
+  /* Oculto arriba del todo (el hero enmarcado trae su propio menú); aparece al hacer scroll */
+  .site-header.is-hide-top:not(.is-scrolled) { opacity: 0; pointer-events: none; }
   .site-header__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
   .brand { color: var(--ink); }
 
@@ -110,6 +114,8 @@ const altHref = ROUTES[altLang][pageKey];
     .site-header.is-transparent { background: var(--cream); border-color: var(--line); }
     .site-header.is-transparent .brand { color: var(--ink); }
     .site-header.is-transparent .nav-toggle span { background: var(--ink); }
+    /* En móvil el header fijo siempre es visible (la tarjeta oculta su menú propio) */
+    .site-header.is-hide-top:not(.is-scrolled) { opacity: 1; pointer-events: auto; }
   }
 </style>
 

@@ -10,9 +10,10 @@ interface Props {
   title?: string;
   description?: string;
   transparentHeader?: boolean;
+  hideHeaderAtTop?: boolean;
 }
 
-const { lang, pageKey, title, description, transparentHeader = false } = Astro.props;
+const { lang, pageKey, title, description, transparentHeader = false, hideHeaderAtTop = false } = Astro.props;
 const t = CONTENT[lang];
 const desc = description ?? t.metaDescription;
 const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${t.tagline}`;
@@ -44,7 +45,7 @@ const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${t.tagl
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
-    <Header lang={lang} pageKey={pageKey} transparent={transparentHeader} />
+    <Header lang={lang} pageKey={pageKey} transparent={transparentHeader} hideAtTop={hideHeaderAtTop} />
     <main>
       <slot />
     </main>

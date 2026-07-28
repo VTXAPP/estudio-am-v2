@@ -150,5 +150,6 @@ h1, h2, h3, h4 {
   .site-header, .nav-toggle, .hero__scroll, .lightbox, .grain, .marquee { display: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .hero { height: 86vh !important; min-height: 0 !important; }
+  .fhero { min-height: 90vh !important; }
   section, figure, img, blockquote { break-inside: avoid; }
 }
