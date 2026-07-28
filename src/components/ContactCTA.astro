@@ -14,7 +14,6 @@ const l = links(lang);
     <div class="cta__top reveal">
       <span class="mono" style="color:var(--beige)">{t.cta.eyebrow} — ✦</span>
     </div>
-    <h2 class="cta__title reveal">{t.cta.heading}</h2>
 
     <div class="cta__row reveal">
       <p class="cta__text">{t.cta.text}</p>
@@ -28,24 +27,27 @@ const l = links(lang);
 </section>
 
 <style>
-  .cta { background: var(--olive); color: var(--cream); position: relative; z-index: 2; }
-  .cta__top { margin-bottom: 1.5rem; }
-  .cta__title {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(2.3rem, 7.5vw, 5.8rem);
-    line-height: 1.04; color: var(--cream);
-    max-width: 14ch;
+  /* Mismo granate de la portada; se une visualmente con el pie de página */
+  .cta {
+    background: var(--brick); color: var(--cream);
+    position: relative; z-index: 2;
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
   }
-  .cta__title::after { content: '.'; color: var(--maroon); }
+  .cta__top { margin-bottom: 1.25rem; }
   .cta__row {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: clamp(1.5rem, 4vw, 4rem); align-items: end;
-    margin-top: clamp(2rem, 4vw, 3.5rem);
-    border-top: 1px solid rgba(250,246,238,0.25); padding-top: 2rem;
+    margin-top: clamp(1rem, 2vw, 1.75rem);
+    border-top: 1px solid rgba(250,246,238,0.28); padding-top: 2rem;
   }
   .cta__text { color: var(--beige); max-width: 44ch; }
   .cta__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-start; }
+
+  /* Sobre el granate, el botón principal va en crema para que destaque */
+  .cta__actions :global(.btn--solid) {
+    background: var(--cream); color: var(--brick); border-color: var(--cream);
+  }
+  .cta__actions :global(.btn--solid:hover) { background: var(--beige); border-color: var(--beige); }
 
   @media (max-width: 760px) {
     .cta__row { grid-template-columns: 1fr; align-items: start; }

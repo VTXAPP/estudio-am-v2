@@ -34,7 +34,8 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .footer { background: var(--olive-deep); color: var(--beige); padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: 1.75rem; position: relative; z-index: 2; }
+  /* Mismo granate que el bloque de contacto: se leen como una sola zona */
+  .footer { background: var(--brick); color: var(--beige); padding-top: clamp(1.5rem, 3vw, 2.5rem); padding-bottom: 1.75rem; position: relative; z-index: 2; }
   .footer__big {
     font-family: var(--font-display);
     font-weight: 300;
@@ -57,7 +58,7 @@ const year = new Date().getFullYear();
   .footer__links a:hover { color: var(--cream); }
   .footer__lab { color: var(--olive-soft); }
 
-  .footer__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; opacity: 0.6; }
+  .footer__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; opacity: 0.8; }
 
   @media (max-width: 640px) {
     .footer__grid { grid-template-columns: 1fr; gap: 1.75rem; }
