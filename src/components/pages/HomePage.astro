@@ -88,7 +88,7 @@ const year = new Date().getFullYear();
       <div class="work__grid">
         {featured.map((img, i) => (
           <figure class="work__fig reveal">
-            <a href={r.portfolio} class="work__imgwrap">
+            <a href={`${r.portfolio}?cat=${img.cat}`} class="work__imgwrap" aria-label={`${catLabel(img.cat)} — ${t.nav.portfolio}`}>
               <Image src={img.src} alt={img.alt[lang]} widths={[500, 800, 1100]} sizes="(max-width: 760px) 100vw, 50vw" />
             </a>
             <figcaption class="mono work__cap">

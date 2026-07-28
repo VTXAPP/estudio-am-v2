@@ -104,11 +104,25 @@ const catLabel = (c: string) => (t.portfolio.filters as any)[c] ?? c;
       it.classList.toggle('is-hidden', !show);
     });
   }
-  buttons.forEach((b) => b.addEventListener('click', () => {
+  function selectFilter(cat: string, updateUrl = true) {
+    const btn = buttons.find((b) => b.dataset.filter === cat);
+    if (!btn) return;
     buttons.forEach((x) => x.classList.remove('is-active'));
-    b.classList.add('is-active');
-    applyFilter(b.dataset.filter || 'all');
-  }));
+    btn.classList.add('is-active');
+    applyFilter(cat);
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      if (cat === 'all') url.searchParams.delete('cat');
+      else url.searchParams.set('cat', cat);
+      history.replaceState(null, '', url);
+    }
+  }
+
+  buttons.forEach((b) => b.addEventListener('click', () => selectFilter(b.dataset.filter || 'all')));
+
+  /* Categoría inicial vía ?cat= (p. ej. al llegar desde "Trabajos recientes") */
+  const initial = new URLSearchParams(window.location.search).get('cat');
+  if (initial && buttons.some((b) => b.dataset.filter === initial)) selectFilter(initial, false);
 
   const lb = document.querySelector('[data-lightbox]') as HTMLElement | null;
   const lbImg = document.querySelector('[data-lb-img]') as HTMLImageElement | null;
