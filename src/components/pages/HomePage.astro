@@ -102,22 +102,6 @@ const year = new Date().getFullYear();
     </div>
   </section>
 
-  <!-- NUESTRA MIRADA -->
-  <section class="section approach">
-    <div class="container approach__grid">
-      <div class="approach__side">
-        <span class="mono mono--maroon">✦ {t.approach.eyebrow}</span>
-      </div>
-      <div class="approach__main reveal">
-        <h2 class="display-md approach__title">{t.approach.title}</h2>
-        <div class="approach__cols">
-          <p>{t.approach.col1}</p>
-          <p>{t.approach.col2}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- SERVICIOS (índice editorial) -->
   <section class="section services" id="servicios">
     <div class="container">
@@ -284,13 +268,6 @@ const year = new Date().getFullYear();
   .work__cap { display: flex; justify-content: space-between; margin-top: 0.7rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 0.6rem; }
   .work__more { margin-top: 1rem; }
 
-  /* ---- NUESTRA MIRADA ---- */
-  .approach { background: var(--beige-soft); }
-  .approach__grid { display: grid; grid-template-columns: 0.25fr 0.75fr; gap: 2rem; }
-  .approach__title { margin-bottom: 1.75rem; max-width: 16ch; }
-  .approach__cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); }
-  .approach__cols p { color: var(--ink-soft); max-width: 44ch; }
-
   /* ---- SERVICIOS ---- */
   .services { background: var(--cream); }
   .svc { list-style: none; padding: 0; border-top: 1px solid var(--line); }
@@ -316,8 +293,6 @@ const year = new Date().getFullYear();
   .kind__by { color: var(--ink-soft); }
 
   @media (max-width: 900px) {
-    .approach__grid { grid-template-columns: 1fr; }
-    .approach__cols { grid-template-columns: 1fr; }
     .svc__link { grid-template-columns: 2.2rem 1fr; row-gap: 0.5rem; }
     .svc__text, .svc__cta { grid-column: 2; }
     .kind__grid { grid-template-columns: 1fr; gap: 2.5rem; }
