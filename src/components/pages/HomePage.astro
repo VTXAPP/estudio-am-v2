@@ -5,7 +5,7 @@ import ContactCTA from '../ContactCTA.astro';
 import { CONTENT, ROUTES, FEATURED, type Locale, type PageKey } from '../../config/site';
 import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
 import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
-import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (editorial B&N)
+import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (cena de evento, B&N)
 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
@@ -71,7 +71,7 @@ const year = new Date().getFullYear();
   <section class="fullphoto">
     <Image
       src={amFull}
-      alt={lang === 'es' ? 'Retrato editorial en blanco y negro: mujer de negro sosteniendo un bolso, luz de claroscuro' : 'Black and white editorial portrait: woman dressed in black holding a handbag in chiaroscuro light'}
+      alt={lang === 'es' ? 'Mesa de cena durante un evento, con copas e invitados alrededor, en blanco y negro' : 'Dinner table during an event, with glasses and guests around, in black and white'}
       widths={[768, 1366, 2000, 2600]}
       sizes="100vw"
       loading="lazy"
