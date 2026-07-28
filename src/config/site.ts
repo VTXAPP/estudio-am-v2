@@ -103,6 +103,17 @@ export const PHOTOS: Photo[] = [
   { src: am19, cat: 'retratos', alt: { es: 'Retrato editorial íntimo bajo luz cálida y suave', en: 'Intimate editorial portrait in warm, soft light' } },
 ];
 
+/* Selección de "Trabajos recientes" (inicio), EN EL ORDEN en que se muestran.
+   Para reordenar o cambiar la selección, edita solo este arreglo. */
+export const FEATURED: Photo[] = [
+  am05, // familia en bautizo (B&N)
+  am16, // ceremonia en la iglesia barroca
+  am13, // madre con su bebé recién nacido (B&N)
+  am22, // anillos y joyería sobre mármol con cítricos
+  am23, // novia en la silla del jardín (B&N)
+  am15, // mujer con blazer, efecto de movimiento
+].map((src) => PHOTOS.find((p) => p.src === src)!);
+
 /** Foto de portada (hero) — novia + novio en El Escorial. */
 export const HERO = am26;
 /** Retrato de la fotógrafa para "Sobre mí" (se muestra en blanco y negro). */

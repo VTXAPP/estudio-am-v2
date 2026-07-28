@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ContactCTA from '../ContactCTA.astro';
-import { CONTENT, ROUTES, PHOTOS, type Locale, type PageKey } from '../../config/site';
+import { CONTENT, ROUTES, FEATURED, type Locale, type PageKey } from '../../config/site';
 import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
 import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
 import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (editorial B&N)
@@ -10,7 +10,7 @@ import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
 const r = ROUTES[lang];
-const featured = PHOTOS.filter((p) => p.feat).slice(0, 6);
+const featured = FEATURED;
 const catLabel = (c: string) => (t.portfolio.filters as any)[c] ?? c;
 
 /* Menú dentro de la tarjeta (como el mock: dos enlaces arriba a la derecha) */
