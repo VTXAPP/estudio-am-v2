@@ -5,16 +5,13 @@ import ContactCTA from '../ContactCTA.astro';
 import { CONTENT, ROUTES, PHOTOS, type Locale, type PageKey } from '../../config/site';
 import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
 import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
+import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (DSC_9283, B&N)
 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
 const r = ROUTES[lang];
 const featured = PHOTOS.filter((p) => p.feat).slice(0, 6);
 const catLabel = (c: string) => (t.portfolio.filters as any)[c] ?? c;
-
-const marqueeWords = lang === 'es'
-  ? ['Bodas', 'Eventos', 'Retratos', 'Estudio AM', 'Fotografía']
-  : ['Weddings', 'Events', 'Portraits', 'Estudio AM', 'Photography'];
 
 /* Menú dentro de la tarjeta (como el mock: dos enlaces arriba a la derecha) */
 const cardNav: { label: string; href: string; key: PageKey }[] = [
@@ -70,19 +67,15 @@ const year = new Date().getFullYear();
     </div>
   </section>
 
-  <!-- MARQUESINA -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      {[...marqueeWords, ...marqueeWords].map((w) => <span>{w}</span>)}
-    </div>
-  </div>
-
-  <!-- MANIFIESTO -->
-  <section class="section manifesto">
-    <div class="container manifesto__grid">
-      <p class="mono mono--maroon reveal">✦ {lang === 'es' ? 'Manifiesto' : 'Statement'}</p>
-      <p class="manifesto__text reveal">{t.intro}</p>
-    </div>
+  <!-- FOTOGRAFÍA COMPLETA (a todo lo ancho, sin recorte) -->
+  <section class="fullphoto">
+    <Image
+      src={amFull}
+      alt={lang === 'es' ? 'Novia de espaldas con su ramo mientras el novio camina al fondo, en blanco y negro' : 'Bride from behind holding her bouquet while the groom walks away, black and white'}
+      widths={[768, 1366, 2000, 2604]}
+      sizes="100vw"
+      loading="lazy"
+    />
   </section>
 
   <!-- TRABAJO SELECCIONADO -->
@@ -272,10 +265,9 @@ const year = new Date().getFullYear();
     .fhero__flower { left: 6%; width: 86%; }
   }
 
-  /* ---- MANIFIESTO ---- */
-  .manifesto { background: var(--cream); }
-  .manifesto__grid { display: grid; grid-template-columns: 0.25fr 0.75fr; gap: 2rem; align-items: start; }
-  .manifesto__text { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.7rem, 4vw, 3.4rem); line-height: 1.18; color: var(--ink); }
+  /* ---- FOTOGRAFÍA COMPLETA ---- */
+  .fullphoto { background: var(--cream); font-size: 0; }
+  .fullphoto img { width: 100%; height: auto; display: block; }
 
   /* ---- HEAD reutilizable ---- */
   .work__head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
@@ -324,7 +316,7 @@ const year = new Date().getFullYear();
   .kind__by { color: var(--ink-soft); }
 
   @media (max-width: 900px) {
-    .manifesto__grid, .approach__grid { grid-template-columns: 1fr; }
+    .approach__grid { grid-template-columns: 1fr; }
     .approach__cols { grid-template-columns: 1fr; }
     .svc__link { grid-template-columns: 2.2rem 1fr; row-gap: 0.5rem; }
     .svc__text, .svc__cta { grid-column: 2; }
