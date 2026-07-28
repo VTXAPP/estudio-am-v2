@@ -122,22 +122,6 @@ const year = new Date().getFullYear();
     </div>
   </section>
 
-  <!-- TESTIMONIOS -->
-  <section class="section kind">
-    <div class="container">
-      <span class="mono mono--maroon reveal">✦ {t.kindWords}</span>
-      <div class="kind__grid">
-        {t.testimonials.map((q, i) => (
-          <blockquote class="kind__q reveal">
-            <span class="mono kind__n">{String(i + 1).padStart(2, '0')}</span>
-            <p class="kind__text">“{q.quote}”</p>
-            <cite class="mono kind__by">— {q.author}</cite>
-          </blockquote>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <ContactCTA lang={lang} />
 </Base>
 
@@ -281,18 +265,9 @@ const year = new Date().getFullYear();
   .svc__link:hover .svc__title { font-style: italic; }
   .svc__cta { color: var(--olive-soft); white-space: nowrap; }
 
-  /* ---- TESTIMONIOS ---- */
-  .kind { background: var(--sand); }
-  .kind__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
-  .kind__q { display: flex; flex-direction: column; gap: 1rem; }
-  .kind__n { color: var(--maroon); }
-  .kind__text { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: 1.35; color: var(--ink); }
-  .kind__by { color: var(--ink-soft); }
-
   @media (max-width: 900px) {
     .svc__link { grid-template-columns: 2.2rem 1fr; row-gap: 0.5rem; }
     .svc__cta { grid-column: 2; }
-    .kind__grid { grid-template-columns: 1fr; gap: 2.5rem; }
   }
   @media (max-width: 760px) {
     .work__fig:nth-child(odd), .work__fig:nth-child(even) { grid-column: 1 / 13; margin-top: 0; }
