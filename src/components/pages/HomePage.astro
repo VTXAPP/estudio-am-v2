@@ -21,13 +21,13 @@ const cardNav: { label: string; href: string; key: PageKey }[] = [
   { label: t.nav.portfolio, href: r.portfolio, key: 'portfolio' },
   { label: t.nav.about, href: r.about, key: 'about' },
 ];
-/* Menú vertical del margen izquierdo (como el mock: ENQUIRE·PORTFOLIO·SERVICES·ABOUT·HOME) */
-const sideNav: { label: string; href: string }[] = [
-  { label: t.nav.contact, href: r.contact },
+/* Menú superior centrado sobre el mat */
+const topNav: { label: string; href: string }[] = [
+  { label: t.nav.home, href: r.home },
   { label: t.nav.portfolio, href: r.portfolio },
   { label: t.services.eyebrow, href: `${r.home}#servicios` },
   { label: t.nav.about, href: r.about },
-  { label: t.nav.home, href: r.home },
+  { label: t.nav.contact, href: r.contact },
 ];
 const year = new Date().getFullYear();
 ---
@@ -35,8 +35,8 @@ const year = new Date().getFullYear();
 <Base lang={lang} pageKey="home" transparentHeader={true} hideHeaderAtTop={true}>
   <!-- HERO enmarcado (geometría medida del mock: márgenes 22.3/19.9/27.2/21.4%) -->
   <section class="fhero">
-    <nav class="fhero__side" aria-label="Navegación lateral">
-      {sideNav.map((item) => <a href={item.href} class="mono fhero__vlink">{item.label}</a>)}
+    <nav class="fhero__topnav" aria-label="Navegación principal">
+      {topNav.map((item) => <a href={item.href} class="mono fhero__vlink">{item.label}</a>)}
     </nav>
 
     <div class="fhero__card">
@@ -176,35 +176,25 @@ const year = new Date().getFullYear();
     /* márgenes medidos del mock: T 27.2% · R 19.9% · B 21.4% · L 22.3% */
     padding: 27.2svh 19.9vw 21.4svh 22.3vw;
   }
-  /* línea vertical del margen izquierdo (x = 6.25vw en el mock) */
-  .fhero::before {
-    content: '';
+  /* menú superior centrado sobre el mat */
+  .fhero__topnav {
     position: absolute;
-    left: 6.25vw; top: 0; bottom: 0;
-    width: 1px;
-    background: rgba(250, 246, 238, 0.35);
-  }
-  /* menú vertical (ENQUIRE·PORTFOLIO·SERVICES·ABOUT·HOME del mock) */
-  .fhero__side {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 6.25vw;
+    top: 13.5svh;
+    left: 0; right: 0;
+    transform: translateY(-50%);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 11svh 0.9vw 9svh 0;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 3.5vw, 3.5rem);
     z-index: 2;
   }
   .fhero__vlink {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-size: 0.66rem;
+    font-size: 0.68rem;
     letter-spacing: 0.2em;
-    color: rgba(250, 246, 238, 0.88);
+    color: rgba(250, 246, 238, 0.9);
     white-space: nowrap;
   }
-  .fhero__vlink:hover { color: var(--cream); text-decoration: underline; text-underline-offset: 0.35em; }
+  .fhero__vlink:hover { color: var(--cream); text-decoration: underline; text-underline-offset: 0.4em; }
 
   .fhero__card {
     position: relative;
@@ -270,14 +260,13 @@ const year = new Date().getFullYear();
   .fhero__foot { color: var(--ink-soft); font-size: 0.6rem; }
 
   @media (max-width: 1100px) {
-    .fhero { padding: 16svh 9vw 12svh 13vw; }
-    .fhero::before { left: 4.5vw; }
-    .fhero__side { width: 4.5vw; padding-right: 0.7vw; }
+    .fhero { padding: 16svh 9vw 12svh 11vw; }
+    .fhero__topnav { top: 8svh; }
   }
   @media (max-width: 880px) {
-    /* móvil: header fijo visible (hamburguesa); sin menú lateral ni de tarjeta */
+    /* móvil: header fijo visible (hamburguesa); sin menú superior ni de tarjeta */
     .fhero { padding: calc(72px + 1rem) 1.1rem 1.4rem; }
-    .fhero::before, .fhero__side, .fhero__nav { display: none; }
+    .fhero__topnav, .fhero__nav { display: none; }
     .fhero__card { min-height: calc(100svh - 72px - 2.4rem); }
     .fhero__photo { left: 30%; top: 10%; width: 40%; }
     .fhero__flower { left: 6%; width: 86%; }
