@@ -202,7 +202,8 @@ const year = new Date().getFullYear();
     z-index: 1;
     margin: 0;
   }
-  .fhero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1); }
+  .fhero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1); transition: filter 0.6s ease; }
+  .fhero__photo:hover img { filter: grayscale(0); }
 
   /* flores exactas del mock: left 16.5% · pegadas abajo · ancho 64.4% */
   .fhero__flower {
@@ -233,7 +234,8 @@ const year = new Date().getFullYear();
 
   /* ---- FOTOGRAFÍA COMPLETA ---- */
   .fullphoto { background: var(--cream); font-size: 0; }
-  .fullphoto img { width: 100%; height: auto; display: block; }
+  .fullphoto img { width: 100%; height: auto; display: block; filter: grayscale(1); transition: filter 0.6s ease; }
+  .fullphoto:hover img { filter: grayscale(0); }
 
   /* ---- HEAD reutilizable ---- */
   .work__head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
@@ -245,8 +247,8 @@ const year = new Date().getFullYear();
   .work__fig:nth-child(odd) { grid-column: 1 / 8; }
   .work__fig:nth-child(even) { grid-column: 8 / 13; margin-top: clamp(2rem, 7vw, 7rem); }
   .work__imgwrap { display: block; overflow: hidden; }
-  .work__imgwrap img { width: 100%; transition: transform 0.8s ease, filter 0.6s ease; }
-  .work__fig:hover .work__imgwrap img { transform: scale(1.03); }
+  .work__imgwrap img { width: 100%; filter: grayscale(1); transition: transform 0.8s ease, filter 0.6s ease; }
+  .work__fig:hover .work__imgwrap img { transform: scale(1.03); filter: grayscale(0); }
   .work__cap { display: flex; justify-content: space-between; margin-top: 0.7rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 0.6rem; }
   .work__more { margin-top: 1rem; }
 
