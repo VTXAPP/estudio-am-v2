@@ -6,7 +6,7 @@ import { CONTENT, ROUTES, type Locale, type PageKey } from '../../config/site';
 import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
 import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
 import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (cena de evento, B&N)
-import amMomento from '../../assets/am-13.jpg';    // sección "momento": madre con bebé (Fig 05 del portafolio)
+import amMomento from '../../assets/am-23.jpg';    // sección "momento": novia en la silla del jardín, B&N (era la Fig 05 de "Trabajos recientes")
 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
@@ -83,7 +83,7 @@ const year = new Date().getFullYear();
       <figure class="momento__photo reveal">
         <Image
           src={amMomento}
-          alt={lang === 'es' ? 'Madre abrazando a su bebé recién nacido dormido sobre su pecho, retrato íntimo en blanco y negro' : 'Mother cradling her sleeping newborn against her chest, intimate black-and-white portrait'}
+          alt={lang === 'es' ? 'Novia de espaldas con vestido de tul y cola larga apoyada en una silla en un jardín, en blanco y negro' : 'Bride seen from behind in a tulle gown with a long train, leaning on a chair in a garden, black and white'}
           widths={[500, 800, 1100]}
           sizes="(max-width: 880px) 100vw, 48vw"
           loading="lazy"
