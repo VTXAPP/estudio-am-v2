@@ -2,16 +2,15 @@
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ContactCTA from '../ContactCTA.astro';
-import { CONTENT, ROUTES, FEATURED, type Locale, type PageKey } from '../../config/site';
+import { CONTENT, ROUTES, type Locale, type PageKey } from '../../config/site';
 import amCover from '../../assets/am-cover.jpg';   // foto de portada (velo, B&N) — la del mock
 import florMock from '../../assets/flor-mock.png'; // flores EXACTAS extraídas del mock (#873834)
 import amFull from '../../assets/am-full.jpg';     // fotografía completa bajo la portada (cena de evento, B&N)
+import amMomento from '../../assets/am-13.jpg';    // sección "momento": madre con bebé (Fig 05 del portafolio)
 
 const { lang } = Astro.props as { lang: Locale };
 const t = CONTENT[lang];
 const r = ROUTES[lang];
-const featured = FEATURED;
-const catLabel = (c: string) => (t.portfolio.filters as any)[c] ?? c;
 
 /* Menú dentro de la tarjeta (como el mock: dos enlaces arriba a la derecha) */
 const cardNav: { label: string; href: string; key: PageKey }[] = [
@@ -78,27 +77,21 @@ const year = new Date().getFullYear();
     />
   </section>
 
-  <!-- TRABAJO SELECCIONADO -->
-  <section class="section work">
-    <div class="container">
-      <div class="work__head reveal">
-        <span class="mono">{t.featured.eyebrow}</span>
-        <h2 class="display-lg">{t.featured.title}</h2>
-      </div>
-      <div class="work__grid">
-        {featured.map((img, i) => (
-          <figure class="work__fig reveal">
-            <a href={`${r.portfolio}?cat=${img.cat}`} class="work__imgwrap" aria-label={`${catLabel(img.cat)} — ${t.nav.portfolio}`}>
-              <Image src={img.src} alt={img.alt[lang]} widths={[500, 800, 1100]} sizes="(max-width: 760px) 100vw, 50vw" />
-            </a>
-            <figcaption class="mono work__cap">
-              <span>Fig. {String(i + 1).padStart(2, '0')}</span>
-              <span>{catLabel(img.cat)}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      <a href={r.portfolio} class="work__more btn btn--outline">{lang === 'es' ? 'Ver portafolio completo' : 'See full portfolio'} →</a>
+  <!-- MOMENTO: foto + frase caligráfica a mano (frase = PLACEHOLDER, sustituir por la definitiva) -->
+  <section class="section momento">
+    <div class="container momento__grid">
+      <figure class="momento__photo reveal">
+        <Image
+          src={amMomento}
+          alt={lang === 'es' ? 'Madre abrazando a su bebé recién nacido dormido sobre su pecho, retrato íntimo en blanco y negro' : 'Mother cradling her sleeping newborn against her chest, intimate black-and-white portrait'}
+          widths={[500, 800, 1100]}
+          sizes="(max-width: 880px) 100vw, 48vw"
+          loading="lazy"
+        />
+      </figure>
+      <p class="momento__frase reveal">
+        {lang === 'es' ? 'donde cada historia se moldea con intención' : 'where every story is shaped by intention'}
+      </p>
     </div>
   </section>
 
@@ -238,17 +231,20 @@ const year = new Date().getFullYear();
   /* ---- HEAD reutilizable ---- */
   .work__head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
 
-  /* ---- TRABAJO (rejilla editorial asimétrica) ---- */
-  .work { background: var(--cream); }
-  .work__grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(1rem, 2.5vw, 2.5rem); }
-  .work__fig { margin-bottom: clamp(2rem, 5vw, 4.5rem); }
-  .work__fig:nth-child(odd) { grid-column: 1 / 8; }
-  .work__fig:nth-child(even) { grid-column: 8 / 13; margin-top: clamp(2rem, 7vw, 7rem); }
-  .work__imgwrap { display: block; overflow: hidden; }
-  .work__imgwrap img { width: 100%; transition: transform 0.8s ease, filter 0.6s ease; }
-  .work__fig:hover .work__imgwrap img { transform: scale(1.03); }
-  .work__cap { display: flex; justify-content: space-between; margin-top: 0.7rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 0.6rem; }
-  .work__more { margin-top: 1rem; }
+  /* ---- MOMENTO (foto + frase caligráfica, como las flores de la portada) ---- */
+  .momento { background: var(--cream); }
+  .momento__grid {
+    display: grid; grid-template-columns: 7fr 5fr;
+    gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  }
+  .momento__photo img { width: 100%; }
+  .momento__frase {
+    font-family: 'Caveat', cursive;
+    color: var(--brick);
+    font-size: clamp(2.6rem, 4.6vw, 4.4rem);
+    line-height: 1.2;
+    transform: rotate(-2.5deg);
+  }
 
   /* ---- SERVICIOS ---- */
   .services { background: var(--cream); }
@@ -269,7 +265,8 @@ const year = new Date().getFullYear();
     .svc__link { grid-template-columns: 2.2rem 1fr; row-gap: 0.5rem; }
     .svc__cta { grid-column: 2; }
   }
-  @media (max-width: 760px) {
-    .work__fig:nth-child(odd), .work__fig:nth-child(even) { grid-column: 1 / 13; margin-top: 0; }
+  @media (max-width: 880px) {
+    .momento__grid { grid-template-columns: 1fr; }
+    .momento__frase { transform: rotate(-2.5deg) translateY(-0.5rem); text-align: center; }
   }
 </style>

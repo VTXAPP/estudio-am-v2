@@ -45,7 +45,7 @@ export const IMG = {
 
 export const LOCALES = ['es', 'en'] as const;
 export type Locale = (typeof LOCALES)[number];
-export type Category = 'bodas' | 'eventos' | 'retratos';
+export type Category = 'bodas' | 'eventos' | 'retratos' | 'producto';
 export type PageKey = 'home' | 'portfolio' | 'about' | 'contact';
 
 /* ============================  MARCA Y CONTACTO  ========================== */
@@ -76,29 +76,29 @@ export type Photo = { src: ImageMetadata; cat: Category; alt: { es: string; en: 
 /* Orden = cómo aparecen en el Portafolio. `feat` = aparece en la selección del inicio. */
 export const PHOTOS: Photo[] = [
   { src: am26, cat: 'bodas', alt: { es: 'Novia con velo y ramo en primer plano y novio caminando al fondo por una explanada empedrada frente a un edificio monumental de piedra', en: 'Bride with veil and bouquet in the foreground while the groom walks across a stone-paved courtyard before a monumental stone building' } },
-  { src: am15, cat: 'retratos', alt: { es: 'Mujer con blazer claro camina con efecto de movimiento ante un muro blanco con arcos y suelo rosado', en: 'Woman in a light blazer walks with a motion-blur effect against a white arched wall and pink marble floor' }, feat: true },
+  { src: am15, cat: 'eventos', alt: { es: 'Mujer con blazer claro camina con efecto de movimiento ante un muro blanco con arcos y suelo rosado', en: 'Woman in a light blazer walks with a motion-blur effect against a white arched wall and pink marble floor' }, feat: true },
   { src: am23, cat: 'bodas', alt: { es: 'Novia de espaldas con vestido de tul y cola larga apoyada en una silla en un jardín, en blanco y negro', en: 'Bride seen from behind in a tulle gown with a long train, leaning on a chair in a garden, black and white' }, feat: true },
   { src: am22, cat: 'bodas', alt: { es: 'Anillos de boda y joyería de novia sobre mármol con rodajas de cítricos y frutos rojos', en: 'Wedding rings and bridal jewelry on marble surrounded by citrus slices and berries' }, feat: true },
   { src: am13, cat: 'retratos', alt: { es: 'Madre abrazando a su bebé recién nacido dormido sobre su pecho, retrato íntimo en blanco y negro', en: 'Mother cradling her sleeping newborn against her chest, intimate black-and-white portrait' }, feat: true },
   { src: am05, cat: 'eventos', alt: { es: 'Familia elegante posando junto a un bebé con faldón de bautizo de encaje, en blanco y negro', en: 'Elegant family posing with a baby in a lace christening gown, black and white' }, feat: true },
-  { src: am16, cat: 'bodas', alt: { es: 'Interior en penumbra de una iglesia barroca durante una ceremonia de boda, con candelabros iluminando el altar', en: 'Dimly lit baroque church interior during a wedding ceremony, with chandeliers illuminating the altar' }, feat: true },
+  { src: am16, cat: 'eventos', alt: { es: 'Interior en penumbra de una iglesia barroca durante una ceremonia de boda, con candelabros iluminando el altar', en: 'Dimly lit baroque church interior during a wedding ceremony, with chandeliers illuminating the altar' }, feat: true },
   { src: am14, cat: 'retratos', alt: { es: 'Madre abrazando a su bebé recién nacido contra el pecho en un retrato cálido e íntimo de maternidad', en: 'Mother cradling her newborn against her chest in a warm, intimate motherhood portrait' } },
   { src: am20, cat: 'retratos', alt: { es: 'Mujer embarazada sostiene su vientre con las manos, vestida con camisa de lino beige, bajo luz cálida', en: 'Pregnant woman cradling her belly, wearing a beige linen shirt, in warm soft light' }, feat: true },
-  { src: am02, cat: 'bodas', alt: { es: 'Arreglos de flores de colores en floreros de vidrio sobre un banco de madera azul oscuro con fondo blanco', en: 'Colorful flower arrangements in glass vases on a dark blue wooden stool against a white background' }, feat: true },
+  { src: am02, cat: 'producto', alt: { es: 'Arreglos de flores de colores en floreros de vidrio sobre un banco de madera azul oscuro con fondo blanco', en: 'Colorful flower arrangements in glass vases on a dark blue wooden stool against a white background' }, feat: true },
   { src: am09, cat: 'eventos', alt: { es: 'Bebé con traje blanco de bautizo y medalla dorada mirando a la cámara con ojos azules', en: 'Baby in a white christening gown with a gold medal looking at the camera with blue eyes' }, feat: true },
-  { src: am04, cat: 'retratos', alt: { es: 'Telón de tela blanca al aire libre con una silla de rejilla en un campo de hierba seca rodeado de pinos', en: 'White fabric backdrop outdoors with a cane chair in a dry grass field surrounded by pines' } },
+  { src: am04, cat: 'producto', alt: { es: 'Telón de tela blanca al aire libre con una silla de rejilla en un campo de hierba seca rodeado de pinos', en: 'White fabric backdrop outdoors with a cane chair in a dry grass field surrounded by pines' } },
   { src: am24, cat: 'bodas', alt: { es: 'Cola del vestido de novia de tul extendida sobre el suelo, en blanco y negro', en: 'Bride’s tulle dress train spread across the floor, black and white' } },
   { src: am18, cat: 'eventos', alt: { es: 'Mesa de cena de evento con copas e invitados alrededor, en blanco y negro', en: 'Event dinner table with glasses and guests around, black and white' } },
   { src: am07, cat: 'retratos', alt: { es: 'Mujer joven con blusa blanca entre flores rosas en un jardín, con efecto soñador', en: 'Young woman in a white blouse among pink flowers in a garden, with a dreamy effect' } },
   { src: am17, cat: 'bodas', alt: { es: 'Ramo de alcatraces blancos en un jarrón de cristal iluminado sobre fondo oscuro', en: 'Bouquet of white calla lilies in a glass vase lit against a dark background' } },
-  { src: am11, cat: 'eventos', alt: { es: 'Superficie de agua de piscina turquesa con reflejos de luz solar', en: 'Turquoise pool water surface with sunlight reflections' } },
+  { src: am11, cat: 'producto', alt: { es: 'Superficie de agua de piscina turquesa con reflejos de luz solar', en: 'Turquoise pool water surface with sunlight reflections' } },
   { src: am21, cat: 'retratos', alt: { es: 'Bebé sonriente recostado mirando a la cámara, en blanco y negro', en: 'Smiling baby lying down looking at the camera, black and white' } },
   { src: am10, cat: 'bodas', alt: { es: 'Pastel de bodas blanco decorado con flores blancas y uvas verdes ante un jardín', en: 'White wedding cake decorated with white flowers and green grapes against a garden' } },
-  { src: am03, cat: 'retratos', alt: { es: 'Hombre con camisa de mezclilla de pie sobre una silla en el jardín de una casa de piedra', en: 'Man in a denim shirt standing on a chair in the garden of a stone house' } },
+  { src: am03, cat: 'producto', alt: { es: 'Hombre con camisa de mezclilla de pie sobre una silla en el jardín de una casa de piedra', en: 'Man in a denim shirt standing on a chair in the garden of a stone house' } },
   { src: am25, cat: 'bodas', alt: { es: 'Cola de vestido de novia con encaje extendida sobre suelo de piedra bajo el sol', en: 'Lace bridal gown train spread across stone paving in sunlight' } },
   { src: am12, cat: 'retratos', alt: { es: 'Pies de un bebé recién nacido sostenidos por las manos de un adulto, en blanco y negro', en: 'Newborn baby’s feet cradled in an adult’s hands, black and white' } },
   { src: am06, cat: 'eventos', alt: { es: 'Pareja con un bebé en brazos vestido con ropón de bautizo, ante una pared blanca, en blanco y negro', en: 'Couple holding a baby in a christening gown against a white wall, black and white' } },
-  { src: am01, cat: 'bodas', alt: { es: 'Ranúnculos en tonos terracota, coral y rojo sobre un fondo blanco luminoso', en: 'Ranunculus flowers in terracotta, coral and red tones over a bright white background' } },
+  { src: am01, cat: 'eventos', alt: { es: 'Ranúnculos en tonos terracota, coral y rojo sobre un fondo blanco luminoso', en: 'Ranunculus flowers in terracotta, coral and red tones over a bright white background' } },
   { src: am08, cat: 'retratos', alt: { es: 'Niña con vestido de cuadros de pie sobre una silla junto a un árbol de Navidad iluminado, en blanco y negro', en: 'Little girl in a plaid dress standing on a chair beside a lit Christmas tree, black and white' } },
   { src: am19, cat: 'retratos', alt: { es: 'Retrato editorial íntimo bajo luz cálida y suave', en: 'Intimate editorial portrait in warm, soft light' } },
 ];
@@ -190,7 +190,7 @@ export const CONTENT: Record<Locale, Strings> = {
       eyebrow: 'Portafolio',
       title: 'Mi trabajo',
       lead: 'Una selección de bodas, eventos y retratos. Cada imagen busca contar lo que se sintió, no solo lo que se vio.',
-      filters: { all: 'Todos', bodas: 'Bodas', eventos: 'Eventos', retratos: 'Retratos' },
+      filters: { all: 'Todos', bodas: 'Bodas', eventos: 'Eventos', retratos: 'Retratos', producto: 'Producto' },
     },
     about: {
       eyebrow: 'Sobre mí',
@@ -272,7 +272,7 @@ export const CONTENT: Record<Locale, Strings> = {
       eyebrow: 'Portfolio',
       title: 'My work',
       lead: 'A selection of weddings, events and portraits. Each image tries to tell what was felt, not only what was seen.',
-      filters: { all: 'All', bodas: 'Weddings', eventos: 'Events', retratos: 'Portraits' },
+      filters: { all: 'All', bodas: 'Weddings', eventos: 'Events', retratos: 'Portraits', producto: 'Product' },
     },
     about: {
       eyebrow: 'About',
