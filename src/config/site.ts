@@ -231,7 +231,7 @@ export const CONTENT: Record<Locale, Strings> = {
     aboutInfo: [
       { label: 'Base', value: 'Ciudad de México' },
       { label: 'Cobertura', value: 'Nacional e internacional' },
-      { label: 'Enfoque', value: 'Bodas · Eventos · Retratos' },
+      { label: 'Enfoque', value: 'Bodas · Eventos · Retratos · Producto' },
     ],
     footerRights: 'Todos los derechos reservados.',
     scroll: 'scroll',
@@ -313,7 +313,7 @@ export const CONTENT: Record<Locale, Strings> = {
     aboutInfo: [
       { label: 'Based in', value: 'Mexico City' },
       { label: 'Coverage', value: 'Nationwide & overseas' },
-      { label: 'Focus', value: 'Weddings · Events · Portraits' },
+      { label: 'Focus', value: 'Weddings · Events · Portraits · Product' },
     ],
     footerRights: 'All rights reserved.',
     scroll: 'scroll',
