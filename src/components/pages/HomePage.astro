@@ -239,11 +239,13 @@ const year = new Date().getFullYear();
   }
   .momento__photo img { width: 100%; }
   .momento__frase {
-    font-family: 'Caveat', cursive;
+    font-family: 'Nanum Pen Script', cursive;
     color: var(--brick);
-    font-size: clamp(2.6rem, 4.6vw, 4.4rem);
-    line-height: 1.2;
-    transform: rotate(-2.5deg);
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    line-height: 1.15;
+    position: relative;
+    /* pisa un poco la foto (sin llegar a la silla) */
+    transform: rotate(-2deg) translateX(calc(-1 * clamp(5rem, 9vw, 9rem)));
   }
 
   /* ---- SERVICIOS ---- */
@@ -267,6 +269,6 @@ const year = new Date().getFullYear();
   }
   @media (max-width: 880px) {
     .momento__grid { grid-template-columns: 1fr; }
-    .momento__frase { transform: rotate(-2.5deg) translateY(-0.5rem); text-align: center; }
+    .momento__frase { transform: rotate(-2deg); text-align: center; }
   }
 </style>
