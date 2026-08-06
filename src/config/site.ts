@@ -53,8 +53,8 @@ export const SITE = {
   name: 'Estudio AM',
   location: '[Tu ciudad]',
   contact: {
-    instagram: { handle: '@essstudioam', url: 'https://www.instagram.com/essstudioam/' },
-    email: 'esssstudioam@gmail.com',
+    instagram: { handle: '@olavarri_estudio', url: 'https://www.instagram.com/olavarri_estudio/' },
+    email: 'estudio@anamariolavarri.com',
     /** WhatsApp internacional SIN signos ni espacios. MX: 52 + 10 dígitos. */
     whatsapp: '525539394586', // +52 55 3939 4586
   },
